@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: student-k8s-config
+  namespace: student-k8s
+
+data:
+  ENVIRONMENT: "dev"

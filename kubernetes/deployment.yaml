@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: student-k8s-app
+  namespace: student-k8s
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: student-k8s-app
+
+  template:
+    metadata:
+      labels:
+        app: student-k8s-app
+
+    spec:
+      containers:
+        - name: student-k8s-app
+          image: <YOUR-ECR-IMAGE>
+
+          ports:
+            - containerPort: 5000
+
+          env:
+            - name: ENVIRONMENT
+              valueFrom:
+                configMapKeyRef:
+                  name: student-k8s-config
+                  key: ENVIRONMENT
+
+            - name: APP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: student-k8s-secret
+                  key: APP_USERNAME
+
+            - name: APP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: student-k8s-secret
+                  key: APP_PASSWORD
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
