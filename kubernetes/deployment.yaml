@@ -20,7 +20,8 @@ spec:
     spec:
       containers:
         - name: student-k8s-app
-          image: <YOUR-ECR-IMAGE>
+          image: student-k8s-app:1.0
+          imagePullPolicy: IfNotPresent
 
           ports:
             - containerPort: 5000

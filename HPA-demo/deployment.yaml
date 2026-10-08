@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: hap-demo
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: hap-demo
+
+  template:
+    metadata:
+      labels:
+        app: hap-demo
+
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+
+          resources:
+            requests:
+              cpu: "100m"
+
+            limits:
+              cpu: "500m"
+
+          ports:
+            - containerPort: 80
